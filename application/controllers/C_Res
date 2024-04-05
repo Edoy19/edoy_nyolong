@@ -1,0 +1,58 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class C_Roles extends CI_Controller
+{
+
+	public function prodaks(Prodak $prodak)
+	{
+		// Retrieve all mail triggers, lines, roles, and model_has_roles
+		$mailTriggers = Mail_Trigger::all();
+		$line = DB::connection('sqlsrv2')->table('lines')->get()->unique('product');
+		$users = Users::all();
+		$roles = Role::all();
+		$modelHasRoles = model_has_roles::all();
+
+		$part_number = DB::connection('sqlsrv2')->table('standard_kousus')->get()->unique('part_number');
+
+		// Retrieve paginated Prodak data with associated Line
+		$prodaks = Prodak::with(['Line', 'Users', 'Users2', 'Users3'])
+			->get();
+
+		// Retrieve role options for the authenticated user
+		$role_options = model_has_roles::query()
+			->select('roles.name')
+			->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+			->leftJoin('users', 'model_has_roles.model_id', '=', 'users.id')
+			->where('users.id', '=', auth()->user()->id)
+			->get();
+		$role_options2 = model_has_roles::query()
+			->select('users.id', 'users.name')
+			->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+			->leftJoin('users', 'model_has_roles.model_id', '=', 'users.id')
+			->where('roles.name', '=', 'QC Manager')
+			->get();
+		$role_options3 = model_has_roles::query()
+			->select('users.id')
+			->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+			->leftJoin('users', 'model_has_roles.model_id', '=', 'users.id')
+			->where('roles.code', 'GM MFG')
+			->get();
+		$role_options5 = Line::query()
+			->select('users.*')
+			->leftJoin('users', 'users.id', '=', 'lines.supervisor_id')
+			->where('lines.hanchou_a_id', auth()->user()->id)
+			->first();
+		$role_options6 = Line::query()
+			->select('users.*')
+			->leftJoin('users', 'users.id', '=', 'lines.manager_id')
+			->where('lines.supervisor_id', auth()->user()->id)
+			->first();
+		$role_options7 = Users::query()
+			->select('users.*')
+			->where('users.id', 480)
+			->first();
+
+		return view('prodak.index', compact('part_number', 'prodaks', 'line', 'roles', 'role_options', 'role_options2', 'role_options3', 'role_options5', 'role_options6', 'role_options7', 'users'));
+	}
+}

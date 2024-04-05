@@ -1,0 +1,115 @@
+USE [db_Material_Lot_Control]
+GO
+
+CREATE TABLE [dbo].[customer](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[custno] [nvarchar](50) NULL,
+	[cust_name] [nvarchar](255) NULL,
+	[suffix_cd] [nvarchar](50) NULL,
+	[cust_keterangan] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+)
+
+
+CREATE TABLE [dbo].[daftar_material_names](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[line_id] [int] NULL,
+	[part_number] [nvarchar](255) NULL,
+	[part_name] [nvarchar](255) NULL,
+	[keterangan] [nvarchar](255) NULL,
+	[qty] [int] NULL,
+	[supplier1] [nvarchar](255) NULL,
+	[wip_mesin] [int] NULL,
+	[type] [nvarchar](255) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+	[approval_1] [nvarchar](50) NULL,
+	[approval_2] [nvarchar](50) NULL,
+	[approval_3] [nvarchar](255) NULL,
+	[dibuat_oleh] [varchar](50) NULL,
+)
+
+
+USE [db_central_user]
+GO
+
+CREATE TABLE [dbo].[Tb_user_login](
+	[user_name] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](250) NULL,
+	[name] [nvarchar](50) NULL,
+	[email] [nvarchar](150) NULL,
+	[office_email] [nvarchar](150) NULL,
+	[kode_department] [nvarchar](50) NULL,
+	[department_name] [nvarchar](250) NULL,
+)
+
+
+CREATE TABLE [dbo].[Tb_department](
+	[hdrid] [nvarchar](50) NULL,
+	[department_code] [nvarchar](50) NULL,
+	[department_name] [nvarchar](150) NULL,
+	[transaction_date] [date] NULL
+)
+
+
+USE [db_mfg_portal]
+GO
+
+CREATE TABLE [dbo].[users](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](255) NOT NULL,
+	[email] [nvarchar](255) NOT NULL,
+	[email_verified_at] [datetime] NULL,
+	[password] [nvarchar](255) NOT NULL,
+	[remember_token] [nvarchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+	[nik] [nvarchar](255) NULL,
+	[is_active] [bit] NOT NULL,
+	[signature_name] [nvarchar](255) NULL,
+)
+ALTER TABLE [dbo].[users] ADD  DEFAULT ('1') FOR [is_active]
+GO
+
+
+CREATE TABLE [dbo].[model_has_roles](
+	[role_id] [bigint] NOT NULL,
+	[model_type] [nvarchar](255) NOT NULL,
+	[model_id] [bigint] NOT NULL,
+ CONSTRAINT [model_has_roles_role_model_type_primary] PRIMARY KEY CLUSTERED 
+(
+	[role_id] ASC,
+	[model_id] ASC,
+	[model_type] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[model_has_roles]  WITH CHECK ADD  CONSTRAINT [model_has_roles_role_id_foreign] FOREIGN KEY([role_id])
+REFERENCES [dbo].[roles] ([id])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[model_has_roles] CHECK CONSTRAINT [model_has_roles_role_id_foreign]
+GO
+
+
+CREATE TABLE [dbo].[roles](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](255) NOT NULL,
+	[guard_name] [nvarchar](255) NOT NULL,
+	[created_at] [datetime] NULL,
+	[updated_at] [datetime] NULL,
+	[code] [nvarchar](255) NULL,
+)
+
+
+
+
+
+
+
+
+
+

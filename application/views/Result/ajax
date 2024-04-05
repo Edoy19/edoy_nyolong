@@ -1,0 +1,195 @@
+tabel = $('#example1').DataTable({
+			"processing": true,
+			"responsive": true,
+			"serverSide": true,
+			"ordering": true, // Set true agar bisa di sorting
+			"order": [
+				[0, 'desc']
+			], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+			dom: "lfBrtip",
+			buttons: [{
+					extend: 'excelHtml5',
+					className: 'btn btn-info mb-2 w-250',
+					text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',
+					customize: function(xlsx) {
+						var sheet = xlsx.xl.worksheets['sheet1.xml'];
+						// jQuery selector to add a border
+						$('row c', sheet).attr('s', '25');
+					}
+				},
+				{
+					extend: 'pdfHtml5',
+					className: 'btn btn-warning mb-2 w-250',
+					text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF',
+					orientation: 'landscape',
+					pageSize: 'A4',
+					download: 'open'
+				}
+			],
+			"ajax": {
+				"url": "<?= base_url('C_Result/view_data_where'); ?>", // URL file untuk proses select datanya
+				"type": "POST",
+				"data": function(data) {
+					data.searchByFromdate = $('#search_fromdate').val();
+					data.searchByTodate = $('#search_todate').val();
+				}
+
+			},
+			"deferRender": true,
+			"aLengthMenu": [
+				[5, 10, 100, 1000, 10000, 100000, 1000000, 1000000000],
+				[5, 10, 100, 1000, 10000, 100000, 1000000, "All"]
+			], // Combobox Limit
+			"columns": [{
+					"data": 'hdrid',
+					"sortable": false, //1
+					render: function(data, type, row, meta) {
+						// return meta.row + meta.settings._iDisplayStart + 1;
+						// return '<div class="btn btn-success btn-sm konfirmasiView" data-id="' + data + '" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="' + data + '" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="' + data + '" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+						mnu = '';
+						mnu = mnu +
+							'<div class="btn btn-success btn-sm konfirmasiView" data-id="' +
+							data +
+							'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
+						//Tombol Edit
+						<?php if (!empty($hak_akses)) {
+							if ($hak_akses->allow_edit == 'on') { ?>
+								mnu = mnu +
+									'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="' +
+									data +
+									'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+						<?php }
+						} ?>
+
+						//Tombol Delete
+						<?php if (!empty($hak_akses)) {
+							if ($hak_akses->allow_delete == 'on') { ?>
+								mnu = mnu +
+									'<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="' +
+									data +
+									'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+						<?php }
+						} ?>
+
+						return mnu;
+
+					}
+				},
+
+				// ---------------------------------- Datatables Macro Batas sini ---------------------------------
+
+				{
+					"data": "hdrid"
+				},
+				{
+					"data": "part_number"
+				},
+				{
+					"data": "part_name"
+				},
+				{
+					"data": "cust_name"
+				},
+				{
+					"data": "cust_name2"
+				},
+				{
+					"data": "problem"
+				},
+				{
+					"data": "occ_place"
+				},
+				{
+					"data": "occ_date"
+				},
+				{
+					"data": "ng_qty"
+				},
+				{
+					"data": "defect_lot"
+				},
+				{
+					"data": "area"
+				},
+				{
+					"data": "sketch1"
+				},
+				{
+					"data": "deskripsi1"
+				},
+				{
+					"data": "sketch2"
+				},
+				{
+					"data": "deskripsi2"
+				},
+				{
+					"data": "skecth3"
+				},
+				{
+					"data": "deskripsi3"
+				},
+				{
+					"data": "checking_method"
+				},
+				{
+					"data": "attach_ik"
+				},
+				{
+					"data": "marking_photo"
+				},
+				{
+					"data": "marking"
+				},
+				{
+					"data": "sortir"
+				},
+				{
+					"data": "perubahan_sortir"
+				},
+
+
+				// ---------------------------------- / Datatables Macro Batas sini --------------------------------
+
+			],
+
+
+		});
+
+
+
+
+"footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+                    
+                    // converting to interger to find total
+                    var intVal = function ( i ) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '')*1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Replace , value nya masih objectObject
+
+                    var api_rem = api
+                      .column( 3 )
+                      .data().toString().replace(/[,\s]/g, '');
+                    // console.log(api_rem);
+                    // console.log(JSON.stringify(api_rem));
+                    var monTotal = api
+                      .column( 3 )
+                      .data().reduce( function (a, b) {
+                            return intVal(a) + intVal(b);
+                            // return parseFloat(a) + parseFloat(b);
+                        }, 0 );
+                         // Update footer by showing the total with the reference of the column index 
+                        var montotal1=monTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
+                        $('#ttl').text(montotal1);
+                        var total=parseFloat(document.getElementById('amount_total').value.replace(/[,\s]/g, '')) - parseFloat(monTotal);
+                        var total_format = total.toLocaleString(undefined, {minimumFractionDigits: 2});
+                        $('#balance').text(total_format);
+                        // Show_temporary();
+                        // $( api.column(1).footer() ).html(monTotal);
+
+                 },

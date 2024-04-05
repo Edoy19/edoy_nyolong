@@ -1,0 +1,31 @@
+.bg-cm {
+  background-color: #d9d9d9;
+  text-align: center;
+}
+
+table {
+  text-align: left;
+}
+
+.bg-d9 {
+  background-color: #d9d9d9;
+}
+
+.text-cm {
+  text-align: center;
+  vertical-align: middle;
+}
+.vertical-text {
+  /* text-align: left; */
+  /* vertical-align: bottom; */
+  /* transform: rotate(); */
+  /* writing-mode: sideways-lr; */
+  /* margin-left: 45%; */
+  /* margin-top: 70%; */
+  /* vertical-align: middle;
+        display: inline-block; */
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: left;
+  min-height: 450px;
+}

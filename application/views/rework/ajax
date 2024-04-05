@@ -1,0 +1,153 @@
+<script>
+	$(document).ready(function() {
+		// $.validator.setDefaults({
+		//     submitHandler: function() {
+
+		//         //berhasil( "Form successful submitted!" );
+		//         var status = $('#exampleModalLabel2').text();
+
+		//         if (status == "Add Data") {
+
+		//             // Ajax insert data
+		//             Simpan_data_sortir("Add");
+
+		//         } else if (status == "Edit Data") {
+
+		//             // Ajax update data
+		//             Simpan_data_sortir("Update2");
+
+		//         } else {
+
+		//             berhasil(status);
+
+		//         }
+
+		//     }
+		// });
+
+		// $('#quickForm2').validate({
+		//     rules: {
+
+		//         part_number: {
+		//             required: true,
+		//         },
+		//         lot_produksi: {
+		//             required: true,
+		//         },
+		//         customer: {
+		//             required: true,
+		//         },
+		//         masalah_stok: {
+		//             required: true,
+		//         },
+		//         masalah_kirim_customer: {
+		//             required: true,
+		//         },
+		//         tgl_berangkat_customer: {
+		//             required: true,
+		//         },
+		//         tgl_datang_customer: {
+		//             required: true,
+		//         },
+		//         masalah_stok_yusen: {
+		//             required: true,
+		//         },
+		//         tgl_berangkat_yusen: {
+		//             required: true,
+		//         },
+		//         tgl_datang_yusen: {
+		//             required: true,
+		//         },
+		//         qty: {
+		//             required: true,
+		//         },
+		//         perlu_info: {
+		//             required: true,
+		//         },
+		//     },
+		//     messages: {
+		//         part_number: {
+		//             required: "Please Input part_number",
+		//             minlength: 3
+		//         },
+		//         lot_produksi: {
+		//             required: "Please Input lot_produksi",
+		//             minlength: 3
+		//         },
+		//         customer: {
+		//             required: "Please Input customer",
+		//             minlength: 3
+		//         },
+		//         masalah_stok: {
+		//             required: "Please Input masalah_stok",
+		//             minlength: 3
+		//         },
+		//         masalah_kirim_customer: {
+		//             required: "Please Input masalah_kirim_customer",
+		//             minlength: 3
+		//         },
+		//         tgl_berangkat_customer: {
+		//             required: "Please Input tgl_berangkat_customer",
+		//             minlength: 3
+		//         },
+		//         tgl_datang_customer: {
+		//             required: "Please Input tgl_datang_customer",
+		//             minlength: 3
+		//         },
+		//         masalah_stok_yusen: {
+		//             required: "Please Input masalah_stok_yusen",
+		//             minlength: 3
+		//         },
+		//         tgl_berangkat_yusen: {
+		//             required: "Please Input tgl_berangkat_yusen",
+		//             minlength: 3
+		//         },
+		//         tgl_datang_yusen: {
+		//             required: "Please Input tgl_datang_yusen",
+		//             minlength: 3
+		//         },
+		//         qty: {
+		//             required: "Please Input qty",
+		//             minlength: 3
+		//         },
+		//         perlu_info: {
+		//             required: "Please Input perlu_info",
+		//             minlength: 3
+		//         },
+		//     }
+		// });
+
+		function Simpan_data_sortir($trigger) {}
+	});
+</script>
+
+var fileInput = document.getElementById['sketch1', 'sketch2', 'sketch3'];
+	var
+
+var fileInput3 = document.getElementById('marking_photo');
+    var filePath2 = fileInput2.value;
+    var allowedExtensions2 = /(\.jpg|\.jpeg|\.png)$/i; // ekstensi yang diizinkan
+    if(!allowedExtensions2.exec(filePath2)){
+        alert('Invalid file type. Only JPG and PNG files are allowed.');
+        fileInput2.value = '';
+        e.preventDefault();
+    }
+
+var fileInput2 = document.getElementById('attach_ik');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.pdf)$/i; // ekstensi yang diizinkan
+    if(!allowedExtensions.exec(filePath)){
+        alert('Invalid file type. Only PDF files are allowed.');
+        fileInput.value = '';
+        e.preventDefault();
+    }
+
+var fileInput2 = document.getElementById('marking_photo');
+    var filePath2 = fileInput2.value;
+    var allowedExtensions2 = /(\.jpg|\.jpeg|\.png)$/i;
+    if(!allowedExtensions2.exec(filePath2)){
+        alert('Invalid file type. Only JPG and PNG files are allowed.');
+        fileInput2.value = '';
+        e.preventDefault();
+    }
+

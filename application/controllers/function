@@ -1,0 +1,104 @@
+function view_modal(hdrid1, status) {
+if (status == "Add") {
+$('#exampleModalLabel').text('Add Data'); // name view
+$('#quickForm')[0].reset();
+$('#quickFormm')[0].reset();
+$('#quickFormmm')[0].reset();
+$('#part_number').select2().val('');
+$('#cust_name').select2().val('');
+$('#cust_name2').select2().val('');
+$('#nama_spv').select2().val('');
+$('#nama_qc').select2().val('');
+$('#nik').val('<?php echo $this->session->userdata('user_name') ?>');
+document.getElementById("edit").style.display = 'none';
+document.getElementById("simpan_data").style.display = "inline"; // Visible button
+} else {
+$('#hdrid').val(hdrid1);
+var hdrid = hdrid1;
+
+$.ajax({
+url: "<?php echo base_url('C_Rework/ajax_getbyhdrid') ?>",
+method: "get",
+dataType: "JSON",
+data: {
+hdrid: hdrid1,
+},
+success: function(data) {
+$('#part_number').select2().val(data.part_number).trigger('change');
+$('#part_name').val(data.part_name);
+$('#cust_name').select2().val(data.cust_name).trigger('change');
+$('#cust_name2').select2().val(data.cust_name2).trigger('change');
+$('#problem').val(data.problem);
+$('#occ_place').val(data.occ_place);
+$('#occ_date').val(data.occ_date);
+$('#ng_qty').val(data.ng_qty);
+$('#defect_lot').val(data.defect_lot);
+$('#area').val(data.area);
+document.getElementById('sketch1_label').innerHTML = data.sketch1;
+var a = document.getElementById('sketch1_view');
+if (!data.sketch1 == '') {
+a.href = "<?php echo base_url('assets/upload/rework_photo') ?>" + data.sketch1;
+} else {
+a.removeAttribute("href");
+};
+$('#deskripsi1').val(data.deskripsi1);
+document.getElementById('sketch2_label').innerHTML = data.sketch2;
+var a = document.getElementById('sketch2_view');
+if (!data.sketch2 == '') {
+a.href = "<?php echo base_url('assets/upload/rework_photo') ?>" + data.sketch2;
+} else {
+a.removeAttribute("href");
+};
+$('#deskripsi2').val(data.deskripsi2);
+document.getElementById('skecth3_label').innerHTML = data.skecth3;
+var a = document.getElementById('skecth3_view');
+if (!data.skecth3 == '') {
+a.href = "<?php echo base_url('assets/upload/rework_photo') ?>" + data.skecth3;
+} else {
+a.removeAttribute("href");
+};
+$('#deskripsi3').val(data.deskripsi3);
+
+$('#checking_method').val(data.checking_method);
+document.getElementById('attach_ik_label').innerHTML = data.attach_ik;
+var a = document.getElementById('attach_ik_view');
+if (!data.attach_ik == '') {
+a.href = "<?php echo base_url('assets/upload/rework_attach__ik') ?>" + data.attach_ik;
+} else {
+a.removeAttribute("href");
+};
+document.getElementById('marking_photo_label').innerHTML = data.marking_photo;
+var a = document.getElementById('marking_photo_view');
+if (!data.marking_photo == '') {
+a.href = "<?php echo base_url('assets/upload/rework_photo') ?>" + data.marking_photo;
+} else {
+a.removeAttribute("href");
+};
+$('#marking').val(data.marking);
+
+if (data.sortir == 'ADA') {
+document.getElementById('sortir_ada').checked = true;
+} else {
+document.getElementById('sortir_tidak').checked = true;
+};
+if (data.perubahan_sortir == 'ADA') {
+document.getElementById('perubahan_sortir_ada').checked = true;
+} else {
+document.getElementById('perubahan_sortir_tidak').checked = true;
+};
+$('#request_by').val(data.request_by);
+$('#checked_by').val(data.checked_by);
+$('#approved_by').val(data.approved_by);
+$('#jabatan_request').val(data.jabatan_request);
+$('#jabatan_checked').val(data.jabatan_checked);
+$('#jabatan_approved').val(data.jabatan_approved);
+tabel2.draw();
+},
+error: function(e) {
+alert(e);
+}
+});
+}
+tabel2.draw();
+tabel3.draw();
+}

@@ -1,0 +1,250 @@
+USE [db_rework_report]
+GO
+
+CREATE TABLE [dbo].[a_menu](
+	[hdrid] [nvarchar](50) NULL,
+	[menu_id] [varchar](5) NOT NULL,
+	[menu_name] [varchar](150) NOT NULL,
+	[controller] [varchar](50) NULL,
+	[parentid] [varchar](5) NULL,
+	[level] [tinyint] NOT NULL,
+	[icon] [varchar](50) NOT NULL,
+	[transaction_date] [datetime] NULL,
+	[description] [nvarchar](100) NULL,
+	[menu_id_encrypt] [nvarchar](1000) NULL,
+)
+
+
+CREATE TABLE [dbo].[a_user_role](
+	[role_id] [varchar](15) NOT NULL,
+	[role_name] [varchar](250) NOT NULL,
+	[description] [varchar](250) NULL,
+	[transaction_date] [date] NULL
+)
+
+
+CREATE TABLE [dbo].[a_user_role_access](
+	[hdrid] [nvarchar](50) NOT NULL,
+	[role_id] [nvarchar](50) NULL,
+	[role_name] [nvarchar](50) NULL,
+	[menu_id] [nvarchar](50) NULL,
+	[menu_name] [nvarchar](50) NULL,
+	[allow_add] [varchar](50) NULL,
+	[allow_edit] [varchar](50) NULL,
+	[allow_delete] [varchar](50) NULL,
+	[allow_import] [varchar](50) NULL,
+	[allow_export] [varchar](50) NULL,
+	[transaction_date] [date] NULL
+)
+
+
+CREATE TABLE [dbo].[a_user_system](
+	[hdrid] [nvarchar](50) NULL,
+	[role_id] [nvarchar](50) NULL,
+	[role_name] [nvarchar](50) NULL,
+	[nik] [nvarchar](50) NULL,
+	[username] [nvarchar](50) NULL,
+	[transaction_date] [date] NULL,
+	[kode_department] [nvarchar](50) NULL,
+	[nama_department] [nvarchar](50) NULL
+)
+
+
+CREATE TABLE [dbo].[approval](
+	[id_approval] [varchar](50) NULL,
+	[id_request] [varchar](50) NULL,
+	[tgl_approve] [datetime] NULL,
+	[request_rework] [varchar](50) NULL,
+	[checked_rework] [varchar](50) NULL,
+	[approved_rework] [varchar](50) NULL,
+	[transaction_date] [date] NULL
+)
+
+
+CREATE TABLE [dbo].[change_sortir](
+	[id] [nvarchar](50) NULL,
+	[transaction_date] [date] NULL,
+	[tgl_perubahan] [date] NULL,
+	[jenis_perubahan] [nvarchar](50) NULL,
+	[check_spv] [nvarchar](50) NULL,
+	[check_mgr] [nvarchar](50) NULL,
+	[id_request] [nvarchar](50) NULL
+)
+
+
+CREATE TABLE [dbo].[customer](
+	[transaction_date] [date] NULL,
+	[custno] [nvarchar](50) NULL,
+	[cust_name] [nvarchar](255) NULL,
+	[cust_keterangan] [nvarchar](255) NULL
+)
+
+
+CREATE TABLE [dbo].[login](
+	[user_name] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](250) NULL,
+	[name] [nvarchar](50) NULL,
+	[email] [nvarchar](150) NULL,
+	[office_email] [nvarchar](150) NULL,
+	[kode_department] [nvarchar](50) NULL,
+	[department_name] [nvarchar](250) NULL
+)
+
+
+CREATE TABLE [dbo].[rework](
+	[hdrid] [nvarchar](50) NULL,
+	[transaction_date] [date] NULL,
+	[part_number] [nvarchar](50) NULL,
+	[part_name] [nvarchar](50) NULL,
+	[cust_name] [nvarchar](50) NULL,
+	[cust_name2] [nvarchar](50) NULL,
+	[problem] [nvarchar](500) NULL,
+	[occ_place] [nvarchar](500) NULL,
+	[occ_date] [date] NULL,
+	[ng_qty] [nvarchar](50) NULL,
+	[defect_lot] [nvarchar](500) NULL,
+	[area] [nvarchar](500) NULL,
+	[sketch1] [nvarchar](100) NULL,
+	[deskripsi1] [nvarchar](500) NULL,
+	[sketch2] [nvarchar](100) NULL,
+	[deskripsi2] [nvarchar](500) NULL,
+	[skecth3] [nvarchar](100) NULL,
+	[deskripsi3] [nvarchar](500) NULL,
+	[checking_method] [nvarchar](500) NULL,
+	[attach_ik] [nvarchar](100) NULL,
+	[marking_photo] [nvarchar](100) NULL,
+	[marking] [nvarchar](500) NULL,
+	[sortir] [nvarchar](50) NULL,
+	[perubahan_sortir] [nvarchar](50) NULL,
+	[request_to] [nvarchar](50) NULL,
+	[nama_spv] [nvarchar](100) NULL,
+	[request_by] [nvarchar](100) NULL,
+	[checked_by] [nvarchar](50) NULL,
+	[approved_by] [nvarchar](50) NULL,
+	[jabatan_request] [nvarchar](50) NULL,
+	[jabatan_checked] [nvarchar](50) NULL,
+	[jabatan_approved] [nvarchar](50) NULL,
+	[status_sortir] [nvarchar](50) NULL,
+	[nik] [nvarchar](50) NULL
+)
+
+
+CREATE TABLE [dbo].[sortir](
+	[id_sortir] [nvarchar](50) NULL,
+	[transaction_date] [date] NULL,
+	[part_number] [nvarchar](50) NULL,
+	[lot_produksi] [nvarchar](50) NULL,
+	[customer] [nvarchar](50) NULL,
+	[masalah_stok] [nvarchar](50) NULL,
+	[masalah_kirim_customer] [nvarchar](50) NULL,
+	[tgl_berangkat_customer] [date] NULL,
+	[tgl_datang_customer] [date] NULL,
+	[masalah_stok_yusen] [nvarchar](50) NULL,
+	[tgl_berangkat_yusen] [date] NULL,
+	[tgl_datang_yusen] [date] NULL,
+	[qty] [nvarchar](50) NULL,
+	[perlu_info] [nvarchar](50) NULL,
+	[id_request] [nvarchar](50) NULL
+)
+
+
+CREATE TABLE [dbo].[tb_approval](
+	[trxid] [int] IDENTITY(1,1) NOT NULL,
+	[hdrid] [nvarchar](50) NULL,
+	[transaction_date] [date] NULL,
+	[nik] [nvarchar](50) NULL,
+	[name] [nvarchar](50) NULL,
+	[department_code] [nvarchar](50) NULL,
+	[department_name] [nvarchar](150) NULL,
+	[office_email] [nvarchar](150) NULL,
+	[position_code] [int] NULL,
+	[position_name] [nvarchar](50) NULL,
+	[date_approve] [smalldatetime] NULL,
+)
+
+
+CREATE TABLE [dbo].[tb_daftar_material_name](
+	[id_material] [nvarchar](50) NULL,
+	[part_number] [nvarchar](50) NULL,
+	[part_name] [nvarchar](50) NULL,
+	[qty] [int] NULL,
+	[transaction_date] [date] NULL
+)
+
+
+CREATE TABLE [dbo].[tb_result](
+	[id_result] [nvarchar](50) NULL,
+	[transaction_date] [date] NULL,
+	[ResultDate] [date] NULL,
+	[InspectorName] [nvarchar](50) NULL,
+	[QTYTotal] [nvarchar](50) NULL,
+	[QTYok] [nvarchar](50) NULL,
+	[QTYng] [nvarchar](50) NULL,
+	[Remarks] [nvarchar](50) NULL,
+	[StartTime] [time](0) NULL,
+	[FinishTime] [time](0) NULL,
+	[id_request] [nvarchar](50) NULL,
+	[part_number] [nvarchar](100) NULL,
+	[lot_produksi] [nvarchar](50) NULL,
+	[id_sortir] [nvarchar](50) NULL,
+	[created_at] [datetime] NULL
+)
+
+
+USE [db_rework_report]
+GO
+
+/****** Object:  Table [dbo].[tb_superior]    Script Date: 4/4/2024 2:41:12 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tb_superior](
+	[hdrid] [nvarchar](50) NULL,
+	[transaction_date] [date] NULL,
+	[nik_superior] [nvarchar](50) NULL,
+	[name_superior] [nvarchar](250) NULL,
+	[kode_section_superior] [nvarchar](50) NULL,
+	[name_section_superior] [nvarchar](250) NULL,
+	[email_superior] [nvarchar](250) NULL,
+	[nik_superior2] [nvarchar](50) NULL,
+	[name_superior2] [nvarchar](250) NULL,
+	[kode_section_superior2] [nvarchar](50) NULL,
+	[name_section_superior2] [nvarchar](250) NULL,
+	[email_superior2] [nvarchar](250) NULL,
+	[position_name2] [nvarchar](70) NULL,
+	[nik_superior3] [nvarchar](50) NULL,
+	[name_superior3] [nvarchar](250) NULL,
+	[kode_section_superior3] [nvarchar](50) NULL,
+	[name_section_superior3] [nvarchar](250) NULL,
+	[email_superior3] [nvarchar](250) NULL,
+	[position_name3] [nvarchar](70) NULL,
+	[nik_superior4] [nvarchar](50) NULL,
+	[name_superior4] [nvarchar](250) NULL,
+	[kode_section_superior4] [nvarchar](50) NULL,
+	[name_section_superior4] [nvarchar](250) NULL,
+	[email_superior4] [nvarchar](250) NULL,
+	[position_name4] [nvarchar](70) NULL,
+	[nik_superior5] [nvarchar](50) NULL,
+	[name_superior5] [nvarchar](250) NULL,
+	[kode_section_superior5] [nvarchar](50) NULL,
+	[name_section_superior5] [nvarchar](250) NULL,
+	[email_superior5] [nvarchar](250) NULL,
+	[position_name5] [nvarchar](70) NULL
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
